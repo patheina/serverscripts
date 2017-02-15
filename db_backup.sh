@@ -14,7 +14,7 @@ GDRIVEFOLDERID=$(gdrive list --no-header | grep $GDRIVEPATH | grep dir | awk '{ 
 
 mysqldump -ubackup phe > $FILENAME;
 
-tar cfz $FILENAME.tar.gz $FILENAME;
+tar -czf $FILENAME.tar.gz $FILENAME;
 rm -f $FILENAME;
 
 gdrive upload --parent $GDRIVEFOLDERID --delete $FILENAME.tar.gz
