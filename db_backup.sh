@@ -1,3 +1,5 @@
+ #!/bin/sh
+
 FILENAME="mysql_backup_"$(date +"%Y-%m-%d_%H-%M-%S")".sql";
 FILEPATH="/tmp/";
 GDRIVEPATH="Tardis-Backup";
@@ -14,7 +16,7 @@ GDRIVEFOLDERID=$(gdrive list --no-header | grep $GDRIVEPATH | grep dir | awk '{ 
 
 mysqldump -ubackup phe > $FILENAME;
 
-tar -czf $FILENAME.tar.gz $FILENAME;
-rm -f $FILENAME;
+tar -czPf $FILEPATH$FILENAME.tar.gz $FILEPATH$FILENAME;
+rm -f $FILEPATH$FILENAME;
 
-gdrive upload --parent $GDRIVEFOLDERID --delete $FILENAME.tar.gz
+gdrive upload --parent $GDRIVEFOLDERID --delete $FILEPATH$FILENAME.tar.gz
