@@ -1,4 +1,4 @@
- #!/bin/sh
+ #!/bin/dash
 
 FILENAME="mysql_backup_"$(date +"%Y-%m-%d_%H-%M-%S")".sql";
 FILEPATH="/tmp/";
