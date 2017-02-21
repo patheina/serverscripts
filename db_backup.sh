@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 FILENAME="mysql_backup_"$(date +"%Y-%m-%d_%H-%M-%S")".sql"
 FILEPATH="/tmp/"
 GDRIVEPATH="Tardis-Backup"
@@ -43,8 +44,6 @@ if [ $GIVEN_ARGS -eq 0 -o $PRINT_HELP -eq 1 ]; then
     exit 1
 fi
 
-cd $FILEPATH;
-
 
 #check remote backup folder exists on gdrive
 GDRIVEFOLDERID=$(gdrive list --no-header | grep $GDRIVEPATH | grep dir | awk '{ print $1}')
@@ -55,7 +54,8 @@ GDRIVEFOLDERID=$(gdrive list --no-header | grep $GDRIVEPATH | grep dir | awk '{ 
 
 mysqldump -ubackup $DATABASENAME > $FILENAME;
 
-tar -czPf $FILEPATH$FILENAME.tar.gz $FILEPATH$FILENAME;
+
+tar -C /tmp/ -czf $FILENAME.tar.gz $FILENAME;
 rm -f $FILEPATH$FILENAME;
 
 gdrive upload --parent $GDRIVEFOLDERID --delete $FILEPATH$FILENAME.tar.gz
